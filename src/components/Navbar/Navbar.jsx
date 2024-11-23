@@ -1,5 +1,7 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { signOut } from "supertokens-auth-react/recipe/session";
+import Session from "supertokens-auth-react/recipe/session";
 import { HiMenuAlt3, HiMenuAlt1 } from "react-icons/hi";
 import ResponsiveMenu from "./ResponsiveMenu";
 import Logo from "../../assets/website/Vector.svg";
@@ -23,11 +25,30 @@ export const MenuLinks = [
   },
 ];
 const Navbar = () => {
+  const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const cookie = document.cookie;
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
+
+  const handleLogout = async () => {
+    await signOut();
+    navigate("/auth");
+    setIsAuthenticated(false);
+  };
+
+  useEffect(() => {
+    // Check if the session exists
+    const checkSession = async () => {
+      const sessionExists = await Session.doesSessionExist();
+      setIsAuthenticated(sessionExists);
+    };
+    checkSession();
+  }, [cookie]);
+
   return (
     <div
       className="relative z-10 w-full dark:bg-black dark:text-white duration-300
@@ -36,10 +57,7 @@ const Navbar = () => {
       <div className="container py-3 md:py-2">
         <div className="flex justify-between items-center">
           {/* Logo section */}
-          <Link
-            to="/"
-            className="flex items-center gap-3"
-          >
+          <Link to="/" className="flex items-center gap-3">
             <img src={Logo} alt="" className="w-5" />
             <span className="text-2xl sm:text-3xl font-semibold">
               Digital agency
@@ -58,9 +76,17 @@ const Navbar = () => {
                   </Link>
                 </li>
               ))}
-              <Link to="/auth">
-              <button className="primary-btn">login</button>
-              </Link>
+              <div>
+                {isAuthenticated ? (
+                  <button className="primary-btn" onClick={handleLogout}>
+                    Logout
+                  </button>
+                ) : (
+                  <Link to="/auth">
+                    <button className="primary-btn">Login</button>
+                  </Link>
+                )}
+              </div>
               <DarkMode />
             </ul>
           </nav>
@@ -84,7 +110,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      <ResponsiveMenu showMenu={showMenu} toggleMenu={toggleMenu} />
+      <ResponsiveMenu showMenu={showMenu} toggleMenu={toggleMenu} isAuthenticated={isAuthenticated} handleLogout={handleLogout} />
     </div>
   );
 };

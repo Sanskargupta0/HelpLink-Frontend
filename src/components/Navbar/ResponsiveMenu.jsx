@@ -4,7 +4,12 @@ import { Link } from "react-router-dom";
 
 import { MenuLinks } from "./Navbar";
 
-const ResponsiveMenu = ({ showMenu, toggleMenu }) => {
+const ResponsiveMenu = ({
+  showMenu,
+  toggleMenu,
+  isAuthenticated,
+  handleLogout,
+}) => {
   return (
     <div
       className={`${
@@ -19,14 +24,29 @@ const ResponsiveMenu = ({ showMenu, toggleMenu }) => {
             <h1 className="text-sm text-slate-500">Premium user</h1>
           </div>
         </div> */}
-        <Link to="/auth" onClick={toggleMenu}>
-          <button className="primary-btn">login</button>
-        </Link>
+        <div>
+          {isAuthenticated ? (
+            <button className="primary-btn" onClick={()=>{
+              handleLogout()
+              toggleMenu()
+            }}>
+              Logout
+            </button>
+          ) : (
+            <Link to="/auth">
+              <button className="primary-btn" onClick={toggleMenu} >Login</button>
+            </Link>
+          )}
+        </div>
         <nav className="mt-12">
           <ul className="space-y-4 text-xl">
             {MenuLinks.map((data) => (
               <li key={data.name}>
-                <Link to={data.link} className="mb-5 inline-block" onClick={toggleMenu} >
+                <Link
+                  to={data.link}
+                  className="mb-5 inline-block"
+                  onClick={toggleMenu}
+                >
                   {data.name}
                 </Link>
               </li>

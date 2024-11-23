@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { toast } from 'react-toastify';
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -47,9 +48,15 @@ SuperTokens.init({
         }
         if (context.createdNewUser) {
             // user signed up
+            toast.success("User signed up successfully",{
+              position: "top-center",
+            });
             return "/dashboard"
         } else {
             // user signed in
+            toast.success("User signed up successfully",{
+              position: "top-center",
+            });
             return "/dashboard"
         }
     } else if (context.action === "TO_AUTH") {
