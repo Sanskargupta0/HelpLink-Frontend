@@ -11,7 +11,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <App />
     <ToastContainer 
-    autoClose={5000}
+    autoClose={3000}
     />
   </React.StrictMode>
 );

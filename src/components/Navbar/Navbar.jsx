@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { signOut } from "supertokens-auth-react/recipe/session";
-import Session from "supertokens-auth-react/recipe/session";
+import Session, { signOut } from "supertokens-auth-react/recipe/session";
 import { HiMenuAlt3, HiMenuAlt1 } from "react-icons/hi";
 import ResponsiveMenu from "./ResponsiveMenu";
 import Logo from "../../assets/website/Vector.svg";

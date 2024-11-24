@@ -17,28 +17,15 @@ const ResponsiveMenu = ({
       } fixed bottom-0 top-0 z-20 flex h-screen w-[75%] flex-col justify-between bg-white dark:bg-gray-900 dark:text-white px-8 pb-6 pt-16 text-black transition-all duration-200 md:hidden rounded-r-xl shadow-md`}
     >
       <div className="card">
-        {/* <div className="flex items-center justify-start gap-3">
+        {isAuthenticated?
+        <div className="flex items-center justify-start gap-3">
           <FaUserCircle size={50} />
           <div>
             <h1>Hello User</h1>
-            <h1 className="text-sm text-slate-500">Premium user</h1>
+            <h1 className="text-sm text-slate-500">Wallet 120$</h1>
           </div>
-        </div> */}
-        <div>
-          {isAuthenticated ? (
-            <button className="primary-btn" onClick={()=>{
-              handleLogout()
-              toggleMenu()
-            }}>
-              Logout
-            </button>
-          ) : (
-            <Link to="/auth">
-              <button className="primary-btn" onClick={toggleMenu} >Login</button>
-            </Link>
-          )}
-        </div>
-        <nav className="mt-12">
+        </div>:""}
+        <nav className={isAuthenticated?"mt-12":""}>
           <ul className="space-y-4 text-xl">
             {MenuLinks.map((data) => (
               <li key={data.name}>
@@ -51,6 +38,20 @@ const ResponsiveMenu = ({
                 </Link>
               </li>
             ))}
+            <li className="flex justify-center">
+            {isAuthenticated ? (
+            <button className="primary-btn" onClick={()=>{
+              handleLogout()
+              toggleMenu()
+            }}>
+              Logout
+            </button>
+          ) : (
+            <Link to="/auth">
+              <button className="primary-btn" onClick={toggleMenu} >Login</button>
+            </Link>
+          )}
+            </li>
           </ul>
         </nav>
       </div>
