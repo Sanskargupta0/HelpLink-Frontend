@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import UserContext from "../../utils/dataStore";
 import { Link, useNavigate } from "react-router-dom";
 import Session, { signOut } from "supertokens-auth-react/recipe/session";
 import { HiMenuAlt3, HiMenuAlt1 } from "react-icons/hi";
@@ -23,10 +24,25 @@ export const MenuLinks = [
     link: "/Contact",
   },
 ];
+
+const loginMenuLinks = [
+  {
+    id: 1,
+    name: "Dashboard",
+    link: "/dashboard",
+  },
+  {
+    id: 2,
+    name: "Services",
+    link: "/services",
+  },
+];
 const Navbar = () => {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { user, setUser, refetchUser } = useContext(UserContext);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const cookie = document.cookie;
 
   const toggleMenu = () => {
@@ -37,12 +53,20 @@ const Navbar = () => {
     await signOut();
     navigate("/auth");
     setIsAuthenticated(false);
+    setUser(null);
+  };
+
+  const generateInitials = (firstName, lastName) => {
+    const firstInitial = firstName ? firstName.charAt(0).toUpperCase() : "";
+    const lastInitial = lastName ? lastName.charAt(0).toUpperCase() : "";
+    return `${firstInitial}${lastInitial}`;
   };
 
   useEffect(() => {
     // Check if the session exists
     const checkSession = async () => {
       const sessionExists = await Session.doesSessionExist();
+      refetchUser();
       setIsAuthenticated(sessionExists);
     };
     checkSession();
@@ -59,22 +83,103 @@ const Navbar = () => {
           <Link to="/" className="flex items-center gap-3">
             <img src={Logo} alt="" className="w-5" />
             <span className="text-2xl sm:text-3xl font-semibold">
-              Digital agency
+              Delhivery
             </span>
           </Link>
           {/* Desktop view Navigation */}
           <nav className="hidden md:block">
-            <ul className="flex items-center gap-8">
-              {MenuLinks.map(({ id, name, link }) => (
-                <li key={id} className="py-4">
-                  <Link
-                    to={link}
-                    className=" text-lg font-medium  hover:text-primary py-2 hover:border-b-2 hover:border-primary transition-colors duration-500  "
+            <ul className="flex items-center lg:gap-8 md:gap-[1rem]">
+              {isAuthenticated ? (
+                <>
+                  {loginMenuLinks.map(({ id, name, link }) => (
+                    <li key={id} className="py-4">
+                      <Link
+                        to={link}
+                        className=" text-lg font-medium  hover:text-primary py-2 hover:border-b-2 hover:border-primary transition-colors duration-500  "
+                      >
+                        {name}
+                      </Link>
+                    </li>
+                  ))}
+                  <li
+                    className="relative" // Make the container relative for dropdown positioning
+                    onMouseEnter={() => setIsDropdownOpen(true)}
                   >
-                    {name}
-                  </Link>
-                </li>
-              ))}
+                    <div className="flex items-center justify-start gap-3 cursor-pointer">
+                      {/* Check if profile picture exists */}
+                      {user?.userMetadata?.metadata?.picture ? (
+                        <Link to="/notification">
+                          <img
+                            src={user?.userMetadata?.metadata?.picture}
+                            alt="User Profile"
+                            className="w-9 h-9 rounded-full object-cover"
+                          />
+                        </Link>
+                      ) : (
+                        // Placeholder for name initials
+                        <Link to="/notification">
+                          <div className="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">
+                            {generateInitials(
+                              user?.userMetadata?.metadata?.first_name,
+                              user?.userMetadata?.metadata?.last_name
+                            )}
+                          </div>
+                        </Link>
+                      )}
+                      <div>
+                        <Link to="/profile">
+                          <h1>
+                            {user?.userMetadata?.metadata?.first_name}&nbsp;
+                            {user?.userMetadata?.metadata?.last_name}
+                          </h1>
+                          <h1 className="text-sm text-slate-500">
+                            Wallet &nbsp;{user?.wallet?.Balance}$
+                          </h1>
+                        </Link>
+                      </div>
+                    </div>
+
+                    {/* Dropdown Menu */}
+                    {isDropdownOpen && (
+                      <ul
+                        onMouseLeave={() => setIsDropdownOpen(false)}
+                        className="absolute top-14 left-0 w-40 bg-white shadow-lg rounded-lg border border-gray-200 z-10"
+                      >
+                        <li
+                          className="hover:bg-gray-100 px-4 py-2 rounded-lg"
+                          onClick={() => setIsDropdownOpen(false)}
+                        >
+                          <Link to="/profile" className="block text-gray-700">
+                            Profile
+                          </Link>
+                        </li>
+                        <li
+                          className="hover:bg-gray-100 px-4 py-2 rounded-lg"
+                          onClick={() => setIsDropdownOpen(false)}
+                        >
+                          <Link
+                            to="/notification"
+                            className="block text-gray-700"
+                          >
+                            Notification
+                          </Link>
+                        </li>
+                      </ul>
+                    )}
+                  </li>
+                </>
+              ) : (
+                MenuLinks.map(({ id, name, link }) => (
+                  <li key={id} className="py-4">
+                    <Link
+                      to={link}
+                      className=" text-lg font-medium  hover:text-primary py-2 hover:border-b-2 hover:border-primary transition-colors duration-500  "
+                    >
+                      {name}
+                    </Link>
+                  </li>
+                ))
+              )}
               <div>
                 {isAuthenticated ? (
                   <button className="primary-btn" onClick={handleLogout}>
@@ -109,7 +214,12 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      <ResponsiveMenu showMenu={showMenu} toggleMenu={toggleMenu} isAuthenticated={isAuthenticated} handleLogout={handleLogout} />
+      <ResponsiveMenu
+        showMenu={showMenu}
+        toggleMenu={toggleMenu}
+        isAuthenticated={isAuthenticated}
+        handleLogout={handleLogout}
+      />
     </div>
   );
 };

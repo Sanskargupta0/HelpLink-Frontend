@@ -23,6 +23,8 @@ import Contact from "./pages/Contact/Contact";
 import About from "./pages/About/About";
 import Services from "./pages/Services/Services";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import Profile from "./pages/Profile/Profile";
+import Notification from "./pages/Notification/Notification";
 
 const App = () => {
   useEffect(() => {
@@ -53,6 +55,16 @@ const App = () => {
           <Route path="/dashboard" element={
                         <SessionAuth>
                             <Dashboard />
+                        </SessionAuth>
+                    } />
+          <Route path="/profile" element={
+                        <SessionAuth>
+                            <Profile />
+                        </SessionAuth>
+                    } />
+          <Route path="/notification" element={
+                        <SessionAuth>
+                            <Notification />
                         </SessionAuth>
                     } />
         </Routes>
