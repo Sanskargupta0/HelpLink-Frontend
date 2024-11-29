@@ -1,32 +1,42 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BiSolidSun, BiSolidMoon } from "react-icons/bi";
 
 const DarkMode = () => {
   const [theme, setTheme] = React.useState(
-    localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
+    localStorage.getItem("theme") || "light"
   );
 
-  const element = document.documentElement; // access to html element
+  const element = document.documentElement; 
+  
 
-  // set theme to localStorage and html element
-  React.useEffect(() => {
+  useEffect(() => {
     localStorage.setItem("theme", theme);
+
     if (theme === "dark") {
       element.classList.add("dark");
-    } else {
       element.classList.remove("light");
+    } else {
+      element.classList.add("light");
       element.classList.remove("dark");
     }
-  });
+  }, [theme]); 
 
   return (
-    <>
+    <div>
       {theme === "dark" ? (
-        <BiSolidSun onClick={() => setTheme("light")} className="text-2xl" />
+        <BiSolidSun
+          onClick={() => setTheme("light")}
+          className="text-2xl cursor-pointer"
+          title="Switch to Light Mode"
+        />
       ) : (
-        <BiSolidMoon onClick={() => setTheme("dark")} className="text-2xl" />
+        <BiSolidMoon
+          onClick={() => setTheme("dark")}
+          className="text-2xl cursor-pointer"
+          title="Switch to Dark Mode"
+        />
       )}
-    </>
+    </div>
   );
 };
 
