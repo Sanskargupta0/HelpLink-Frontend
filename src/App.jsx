@@ -25,6 +25,7 @@ import Services from "./pages/Services/Services";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Profile from "./pages/Profile/Profile";
 import Notification from "./pages/Notification/Notification";
+import Wallet from "./pages/Wallet/Wallet";
 
 const App = () => {
   useEffect(() => {
@@ -65,6 +66,11 @@ const App = () => {
           <Route path="/notification" element={
                         <SessionAuth>
                             <Notification />
+                        </SessionAuth>
+                    } />
+          <Route path="/wallet" element={
+                        <SessionAuth>
+                            <Wallet />
                         </SessionAuth>
                     } />
         </Routes>

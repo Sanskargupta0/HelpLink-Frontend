@@ -33,7 +33,7 @@ const loginMenuLinks = [
   },
   {
     id: 2,
-    name: "Services",
+    name: "Create Label",
     link: "/services",
   },
 ];
@@ -162,6 +162,17 @@ const Navbar = () => {
                             className="block text-gray-700"
                           >
                             Notification
+                          </Link>
+                        </li>
+                        <li
+                          className="hover:bg-gray-100 px-4 py-2 rounded-lg"
+                          onClick={() => setIsDropdownOpen(false)}
+                        >
+                          <Link
+                            to="/wallet"
+                            className="block text-gray-700"
+                          >
+                            Wallet
                           </Link>
                         </li>
                       </ul>

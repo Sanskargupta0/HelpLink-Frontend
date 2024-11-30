@@ -68,6 +68,15 @@ const ResponsiveMenu = ({
               <>
                 <li>
                   <Link
+                    to="/dashboard"
+                    className="mb-5 inline-block"
+                    onClick={toggleMenu}
+                  >
+                    Dashboard
+                  </Link>
+                </li>
+                <li>
+                  <Link
                     to="/profile"
                     className="mb-5 inline-block"
                     onClick={toggleMenu}
@@ -82,6 +91,15 @@ const ResponsiveMenu = ({
                     onClick={toggleMenu}
                   >
                     Notification
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/Wallet"
+                    className="mb-5 inline-block"
+                    onClick={toggleMenu}
+                  >
+                    Wallet
                   </Link>
                 </li>
               </>
