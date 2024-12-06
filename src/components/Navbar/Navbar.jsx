@@ -107,10 +107,10 @@ const Navbar = () => {
                   >
                     <div className="flex items-center justify-start gap-3 cursor-pointer">
                       {/* Check if profile picture exists */}
-                      {user?.userMetadata?.metadata?.picture ? (
+                      {user?.picture ? (
                         <Link to="/notification">
                           <img
-                            src={user?.userMetadata?.metadata?.picture}
+                            src={user?.picture}
                             alt="User Profile"
                             className="w-9 h-9 rounded-full object-cover"
                           />
@@ -120,8 +120,8 @@ const Navbar = () => {
                         <Link to="/notification">
                           <div className="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">
                             {generateInitials(
-                              user?.userMetadata?.metadata?.first_name,
-                              user?.userMetadata?.metadata?.last_name
+                              user?.first_name,
+                              user?.last_name
                             )}
                           </div>
                         </Link>
@@ -129,8 +129,8 @@ const Navbar = () => {
                       <div>
                         <Link to="/profile">
                           <h1>
-                            {user?.userMetadata?.metadata?.first_name}&nbsp;
-                            {user?.userMetadata?.metadata?.last_name}
+                            {user?.first_name}&nbsp;
+                            {user?.last_name}
                           </h1>
                           <h1 className="text-sm text-slate-500">
                             Wallet &nbsp;{user?.wallet?.Balance}$

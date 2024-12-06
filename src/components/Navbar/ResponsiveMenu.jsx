@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { FaUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import UserContext from "../../utils/dataStore";
 import { MenuLinks } from "./Navbar";
@@ -28,10 +27,10 @@ const ResponsiveMenu = ({
         {isAuthenticated ? (
           <div className="flex items-center justify-start gap-3">
             {/* Check if profile picture exists */}
-            {user?.userMetadata?.metadata?.picture ? (
+            {user?.picture ? (
               <Link to="/notification" onClick={toggleMenu}>
                 <img
-                  src={user?.userMetadata?.metadata?.picture}
+                  src={user?.picture}
                   alt="User Profile"
                   className="w-12 h-12 rounded-full object-cover"
                 />
@@ -40,18 +39,15 @@ const ResponsiveMenu = ({
               // Placeholder for name initials
               <Link to="/notification" onClick={toggleMenu}>
                 <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">
-                  {generateInitials(
-                    user?.userMetadata?.metadata?.first_name,
-                    user?.userMetadata?.metadata?.last_name
-                  )}
+                  {generateInitials(user?.first_name, user?.last_name)}
                 </div>
               </Link>
             )}
             <div>
               <Link to="/profile" onClick={toggleMenu}>
                 <h1>
-                  {user?.userMetadata?.metadata?.first_name}&nbsp;
-                  {user?.userMetadata?.metadata?.last_name}
+                  {user?.first_name}&nbsp;
+                  {user?.last_name}
                 </h1>
                 <h1 className="text-sm text-slate-500">
                   Wallet &nbsp;{user?.wallet?.Balance}$
