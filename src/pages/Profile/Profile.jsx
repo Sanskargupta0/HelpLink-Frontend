@@ -9,7 +9,7 @@ export default function Profile() {
   const data = useContext(UserContext);
   const [isEditing, setIsEditing] = useState(false);
   const [isChangingPassword, setIsChangingPassword] = useState(false);
-  
+
   // Initialize user state from context
   const [user, setUser] = useState({
     first_name: data.user?.first_name || "",
@@ -31,17 +31,21 @@ export default function Profile() {
     });
   }, [data.user]);
 
-  const generateInitials = (first_name, last_name) => 
-    `${first_name?.charAt(0).toUpperCase() || ""}${last_name?.charAt(0).toUpperCase() || ""}`;
+  const generateInitials = (first_name, last_name) =>
+    `${first_name?.charAt(0).toUpperCase() || ""}${
+      last_name?.charAt(0).toUpperCase() || ""
+    }`;
 
-  const adjustGooglePictureUrl = (url) => 
-    url?.includes("lh3.googleusercontent.com") ? url.replace(/=s\d+-c$/, "=s1024-c") : url;
+  const adjustGooglePictureUrl = (url) =>
+    url?.includes("lh3.googleusercontent.com")
+      ? url.replace(/=s\d+-c$/, "=s1024-c")
+      : url;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value.trim() // Trim whitespace from input
+      [name]: value.trim(), // Trim whitespace from input
     }));
   };
 
@@ -78,12 +82,12 @@ export default function Profile() {
         // Update both local and context state
         const updatedUser = { ...user, ...changes };
         setUser(updatedUser);
-        data.setUser(prev => ({ ...prev, ...changes }));
-        
+        data.setUser((prev) => ({ ...prev, ...changes }));
+
         // Reset form state
         setFormData({});
         setIsEditing(false);
-        
+
         toast.success("User information updated successfully!", {
           position: "top-right",
         });
@@ -100,13 +104,49 @@ export default function Profile() {
     e.preventDefault();
     const formElement = e.target;
     const passwordData = {
-      currentPassword: formElement.currentPassword.value,
+      oldPassword: formElement.oldPassword.value,
       newPassword: formElement.newPassword.value,
       confirmPassword: formElement.confirmPassword.value,
     };
 
-    // Add your password validation and update logic here
-    setIsChangingPassword(false);
+    if (passwordData.newPassword !== passwordData.confirmPassword) {
+      toast.error("Passwords do not match", {
+        position: "top-right",
+      });
+      return;
+    } else if (passwordData.newPassword.length < 8) {
+      toast.error("Password must be at least 8 characters", {
+        position: "top-right",
+      });
+      return;
+    } else {
+      try {
+        const response = await axios.post(
+          `${import.meta.env.VITE_BACKEND_URL}/update-password`,
+          passwordData,
+          {
+            withCredentials: true,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        if (response.status === 200) {
+          formElement.reset();
+          setIsChangingPassword(false);
+          toast.success("Password updated successfully!", {
+            position: "top-right",
+          });
+        } else {
+          toast.error(`${response.data?.msg || "Failed to update password"}`, {
+            position: "top-right",
+          });
+        }
+      } catch (error) {
+        toast.error(
+          error.response?.data?.msg || "Failed to update password",
+          { position: "top-right" }
+        );  
+      }
+    }
   };
 
   // Input field configurations
@@ -118,7 +158,7 @@ export default function Profile() {
   ];
 
   const passwordFields = [
-    { name: "currentPassword", label: "Current Password" },
+    { name: "oldPassword", label: "Current Password" },
     { name: "newPassword", label: "New Password" },
     { name: "confirmPassword", label: "Confirm New Password" },
   ];
@@ -151,7 +191,13 @@ export default function Profile() {
                   <h1 className="text-3xl font-semibold text-gray-900 dark:text-white">
                     {`${user.first_name} ${user.last_name}`}
                   </h1>
-                  <p className={`mt-2 font-bold ${user.role === "Inactive" ? "text-[red]" : "text-[lightgreen]"}`}>
+                  <p
+                    className={`mt-2 font-bold ${
+                      user.role === "Inactive"
+                        ? "text-[red]"
+                        : "text-[lightgreen]"
+                    }`}
+                  >
                     {user.role}
                   </p>
                 </div>
@@ -209,8 +255,8 @@ export default function Profile() {
                 </form>
               )}
 
-              {!data.user?.thirdparty && (
-                !isChangingPassword ? (
+              {!data.user?.thirdparty &&
+                (!isChangingPassword ? (
                   <button
                     onClick={() => setIsChangingPassword(true)}
                     className="mt-6 w-full bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200"
@@ -219,7 +265,10 @@ export default function Profile() {
                     Change Password
                   </button>
                 ) : (
-                  <form onSubmit={handlePasswordChange} className="mt-6 space-y-6">
+                  <form
+                    onSubmit={handlePasswordChange}
+                    className="mt-6 space-y-6"
+                  >
                     {passwordFields.map(({ name, label }) => (
                       <div key={name}>
                         <label
@@ -229,7 +278,7 @@ export default function Profile() {
                           {label}
                         </label>
                         <input
-                          type="password"
+                          type={name === "oldPassword" || name === "newPassword" ? "password" : "text"}
                           name={name}
                           id={name}
                           className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-400 focus:ring focus:ring-blue-200 focus:ring-opacity-50 dark:bg-gray-800 dark:border-gray-700 dark:text-white px-4 py-2"
@@ -251,8 +300,7 @@ export default function Profile() {
                       </button>
                     </div>
                   </form>
-                )
-              )}
+                ))}
             </div>
           </div>
         </div>
