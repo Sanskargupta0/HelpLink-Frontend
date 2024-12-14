@@ -26,6 +26,7 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Profile from "./pages/Profile/Profile";
 import Notification from "./pages/Notification/Notification";
 import Wallet from "./pages/Wallet/Wallet";
+import Error from "./pages/Error/Error";
 
 const App = () => {
   useEffect(() => {
@@ -73,6 +74,7 @@ const App = () => {
                             <Wallet />
                         </SessionAuth>
                     } />
+          <Route path="*" element={<Error />} />
         </Routes>
         <Footer />
       </div>
