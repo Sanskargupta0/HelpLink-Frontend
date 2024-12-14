@@ -8,6 +8,7 @@ const ResponsiveMenu = ({
   toggleMenu,
   isAuthenticated,
   handleLogout,
+  admin,
 }) => {
   const { user } = useContext(UserContext);
 
@@ -62,6 +63,17 @@ const ResponsiveMenu = ({
           <ul className="space-y-4 text-xl">
             {isAuthenticated ? (
               <>
+                {admin && (
+                  <li>
+                    <Link
+                      to="/admin"
+                      className="mb-5 inline-block"
+                      onClick={toggleMenu}
+                    >
+                      Admin
+                    </Link>
+                  </li>
+                )}
                 <li>
                   <Link
                     to="/dashboard"
@@ -69,6 +81,15 @@ const ResponsiveMenu = ({
                     onClick={toggleMenu}
                   >
                     Dashboard
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/create-label"
+                    className="mb-5 inline-block"
+                    onClick={toggleMenu}
+                  >
+                    Create Label
                   </Link>
                 </li>
                 <li>

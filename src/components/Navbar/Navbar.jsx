@@ -6,6 +6,7 @@ import { HiMenuAlt3, HiMenuAlt1 } from "react-icons/hi";
 import ResponsiveMenu from "./ResponsiveMenu";
 import Logo from "../../assets/website/Vector.svg";
 import DarkMode from "./DarkMode";
+import { use } from "react";
 
 export const MenuLinks = [
   {
@@ -34,7 +35,7 @@ const loginMenuLinks = [
   {
     id: 2,
     name: "Create Label",
-    link: "/services",
+    link: "/create-label",
   },
 ];
 const Navbar = () => {
@@ -54,6 +55,7 @@ const Navbar = () => {
     navigate("/auth");
     setIsAuthenticated(false);
     setUser(null);
+    setAdmin(false);
   };
 
   const generateInitials = (firstName, lastName) => {
@@ -145,6 +147,16 @@ const Navbar = () => {
                         onMouseLeave={() => setIsDropdownOpen(false)}
                         className="absolute top-14 left-0 w-40 bg-white shadow-lg rounded-lg border border-gray-200 z-10"
                       >
+                        {user?.role === "Admin" && (
+                          <li
+                            className="hover:bg-gray-100 px-4 py-2 rounded-lg"
+                            onClick={() => setIsDropdownOpen(false)}
+                          >
+                            <Link to="/admin" className="block text-gray-700">
+                              Admin
+                            </Link>
+                          </li>
+                        )}
                         <li
                           className="hover:bg-gray-100 px-4 py-2 rounded-lg"
                           onClick={() => setIsDropdownOpen(false)}
@@ -168,10 +180,7 @@ const Navbar = () => {
                           className="hover:bg-gray-100 px-4 py-2 rounded-lg"
                           onClick={() => setIsDropdownOpen(false)}
                         >
-                          <Link
-                            to="/wallet"
-                            className="block text-gray-700"
-                          >
+                          <Link to="/wallet" className="block text-gray-700">
                             Wallet
                           </Link>
                         </li>
@@ -230,6 +239,7 @@ const Navbar = () => {
         toggleMenu={toggleMenu}
         isAuthenticated={isAuthenticated}
         handleLogout={handleLogout}
+        admin={user?.role === "Admin"}
       />
     </div>
   );
