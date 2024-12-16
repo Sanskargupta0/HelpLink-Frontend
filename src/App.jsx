@@ -1,5 +1,7 @@
-import React, { useEffect } from "react";
+import { useEffect, useState, useContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { initializeSocket, closeSocket } from "./utils/socketService";
+import UserContext from "./utils/dataStore";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -33,6 +35,10 @@ import Admin from "./pages/Admin/Admin";
 import Error from "./pages/Error/Error";
 
 const App = () => {
+  const { user } = useContext(UserContext);
+  const [newNotification, setNewNotification] = useState("");
+  const [globalNotification, setGlobalNotification] = useState([]);
+
   useEffect(() => {
     AOS.init({
       offset: 100,
@@ -42,6 +48,26 @@ const App = () => {
     });
     AOS.refresh();
   }, []);
+
+  useEffect(() => {
+    const socket = initializeSocket();
+
+    if (user?._id) {
+      console.log("User Id: ", user._id);
+      socket.emit("authenticate", user._id);
+
+      socket.on("newNotification", (notification) => {
+        if (newNotification) {
+          setGlobalNotification([notification, ...globalNotification]);
+        }
+        setNewNotification(notification);
+      });
+    }
+
+    return () => {
+      socket.off("newNotification");
+    };
+  }, [user]);
 
   return (
     <SuperTokensWrapper>

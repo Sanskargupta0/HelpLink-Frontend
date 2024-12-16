@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react";
+import { createContext, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import Session from "supertokens-auth-react/recipe/session"; // Ensure this is installed
@@ -34,12 +34,8 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    fetchUserData();
-  }, []);
-
   return (
-    <UserContext.Provider value={{ user, setUser, refetchUser: fetchUserData }}>
+    <UserContext.Provider value={{ user, setUser, fetchUserData}}>
       {children}
     </UserContext.Provider>
   );

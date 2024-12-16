@@ -6,7 +6,6 @@ import { HiMenuAlt3, HiMenuAlt1 } from "react-icons/hi";
 import ResponsiveMenu from "./ResponsiveMenu";
 import Logo from "../../assets/website/Vector.svg";
 import DarkMode from "./DarkMode";
-import { use } from "react";
 
 export const MenuLinks = [
   {
@@ -42,9 +41,8 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const { user, setUser, refetchUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const cookie = document.cookie;
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -55,7 +53,6 @@ const Navbar = () => {
     navigate("/auth");
     setIsAuthenticated(false);
     setUser(null);
-    setAdmin(false);
   };
 
   const generateInitials = (firstName, lastName) => {
@@ -68,11 +65,10 @@ const Navbar = () => {
     // Check if the session exists
     const checkSession = async () => {
       const sessionExists = await Session.doesSessionExist();
-      refetchUser();
       setIsAuthenticated(sessionExists);
     };
     checkSession();
-  }, [cookie]);
+  }, [user]);
 
   return (
     <div

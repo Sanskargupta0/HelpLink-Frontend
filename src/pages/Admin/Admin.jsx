@@ -26,7 +26,7 @@ export default function Admin() {
   }, []);
 
   return (
-    <div className="relative z-10 w-full min-h-screen bg-gray-100 dark:bg-black dark:text-white duration-300">
+    <div className="relative  w-full min-h-screen bg-gray-100 dark:bg-black dark:text-white duration-300">
       <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <h1 className="text-4xl font-bold mb-8 text-center" data-aos="fade-down">Admin Dashboard</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
