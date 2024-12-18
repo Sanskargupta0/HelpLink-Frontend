@@ -1,12 +1,13 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import Session from "supertokens-auth-react/recipe/session"; // Ensure this is installed
+import Session from "supertokens-auth-react/recipe/session";
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [fetching, setFetching] = useState(true);
 
   // Fetch user data only if the session exists
   const fetchUserData = async () => {
@@ -34,8 +35,12 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  useEffect(() => {
+    fetchUserData();
+  }, [fetching]);
+
   return (
-    <UserContext.Provider value={{ user, setUser, fetchUserData}}>
+    <UserContext.Provider value={{ user, setUser, setFetching, fetching }}>
       {children}
     </UserContext.Provider>
   );

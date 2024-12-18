@@ -1,16 +1,13 @@
-import { useContext, useEffect } from 'react';
-import UserContext from '../../utils/dataStore';
+import { useContext, useEffect } from "react";
+import UserContext from "../../utils/dataStore";
 const Dashboard = () => {
-
-  const { fetchUserData } = useContext(UserContext);
-  
+  const { user, fetching, setFetching } = useContext(UserContext);
   useEffect(() => {
-    fetchUserData();
-  }, []);
+    if (!user) {
+      setFetching(!fetching);
+    }
+  }, [user]);
+  return <div>Dashboard</div>;
+};
 
-  return (
-    <div>Dashboard</div>
-  )
-}
-
-export default Dashboard
+export default Dashboard;

@@ -36,7 +36,7 @@ import Error from "./pages/Error/Error";
 
 const App = () => {
   const { user } = useContext(UserContext);
-  const [newNotification, setNewNotification] = useState("");
+  const [newNotification, setNewNotification] = useState([]);
   const [globalNotification, setGlobalNotification] = useState([]);
 
   useEffect(() => {
@@ -104,7 +104,12 @@ const App = () => {
               path="/notification"
               element={
                 <SessionAuth>
-                  <Notification />
+                  <Notification 
+                    newNotification={newNotification}
+                    setNewNotification={setNewNotification}
+                    setGlobalNotification={setGlobalNotification}
+                    globalNotification={globalNotification}
+                  />
                 </SessionAuth>
               }
             />

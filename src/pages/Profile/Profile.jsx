@@ -29,6 +29,15 @@ export default function Profile() {
       duration: 500,
       once: true,
     });
+    setUser({
+      first_name: data.user?.first_name || "",
+      last_name: data.user?.last_name || "",
+      email: data.user?.email || "",
+      phone: data.user?.phone || "Not provided",
+      country: data.user?.country || "Not provided",
+      profilePicture: data.user?.picture,
+      role: data.user?.role,
+    });
   }, [data.user]);
 
   const generateInitials = (first_name, last_name) =>
