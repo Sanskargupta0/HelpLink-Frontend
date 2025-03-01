@@ -7,7 +7,7 @@ const Dashboard = () => {
       setFetching(!fetching);
     }
   }, [user]);
-  return <div>Dashboard</div>;
+return <></>
 };
 
 export default Dashboard;

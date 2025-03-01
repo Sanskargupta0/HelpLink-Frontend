@@ -8,11 +8,7 @@ import BlogsComp from "../../components/Blogs/BlogsComp.jsx";
 const Home = () => {
   return (
     <>
-    <Hero />
-    <BrandsLogo />
-    <Services />
-    <Testimonial />
-    <BlogsComp />
+    Home Page
     </>
   )
 }

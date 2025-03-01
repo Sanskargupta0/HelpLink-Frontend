@@ -1,42 +1,42 @@
-import React from "react";
-import { FaCameraRetro } from "react-icons/fa";
-import { GiNotebook } from "react-icons/gi";
-import { SlNote } from "react-icons/sl";
+import { FaChartLine, FaPiggyBank, FaBalanceScale } from "react-icons/fa";
+import { GiWallet } from "react-icons/gi";
+
 
 const skillsData = [
   {
-    name: "App Development",
-    icon: <FaCameraRetro className="text-4xl text-primary" />,
+    name: "Expense Tracking",
+    icon: <FaChartLine className="text-4xl text-primary" />,
     link: "#",
     description:
-      "ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod metus vel sem bibendum, a bibendum justo tempor. Sed vel lectus",
+      "Easily monitor your daily, weekly, and monthly expenses to stay on top of your spending habits.",
     aosDelay: "0",
   },
   {
-    name: "Web Designing",
-    icon: <GiNotebook className="text-4xl text-primary" />,
+    name: "Smart Budgeting",
+    icon: <GiWallet className="text-4xl text-primary" />,
     link: "#",
     description:
-      "ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod metus vel sem bibendum, a bibendum justo tempor. Sed vel lectus",
+      "Create and manage budgets effortlessly, ensuring you allocate funds wisely for essential expenses and savings.",
     aosDelay: "300",
   },
   {
-    name: "Graphic Designing",
-    icon: <SlNote className="text-4xl text-primary" />,
+    name: "Investment Guidance",
+    icon: <FaPiggyBank className="text-4xl text-primary" />,
     link: "#",
     description:
-      "ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod metus vel sem bibendum, a bibendum justo tempor. Sed vel lectus",
+      "Get AI-driven insights and recommendations to make informed investment decisions for a secure future.",
     aosDelay: "500",
   },
   {
-    name: "Digital Marketing",
-    icon: <SlNote className="text-4xl text-primary" />,
+    name: "Debt Management",
+    icon: <FaBalanceScale className="text-4xl text-primary" />,
     link: "#",
     description:
-      "ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod metus vel sem bibendum, a bibendum justo tempor. Sed vel lectus",
+      "Track and manage your loans and EMIs efficiently, helping you clear debts faster and avoid financial stress.",
     aosDelay: "700",
   },
 ];
+
 const Services = () => {
   return (
     <>

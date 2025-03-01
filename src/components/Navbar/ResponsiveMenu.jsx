@@ -85,15 +85,6 @@ const ResponsiveMenu = ({
                 </li>
                 <li>
                   <Link
-                    to="/create-label"
-                    className="mb-5 inline-block"
-                    onClick={toggleMenu}
-                  >
-                    Create Label
-                  </Link>
-                </li>
-                <li>
-                  <Link
                     to="/profile"
                     className="mb-5 inline-block"
                     onClick={toggleMenu}

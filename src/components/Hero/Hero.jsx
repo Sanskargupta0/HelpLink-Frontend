@@ -25,30 +25,30 @@ const Hero = () => {
           </div>
 
           {/* Text section */}
-          <div className="space-y-5 order-2 sm:order-1 xl:pr-40 ">
-            <h1
-              data-aos="fade-up"
-              className="text-4xl sm:text-5xl font-semibold"
-              style={{ lineHeight: 1.2 }}
-            >
-              Building Brands in the{" "}
-              <span className="text-primary">Delhivery</span>
-            </h1>
-            <p data-aos="fade-up" data-aos-delay="300">
-              Your partner in navigating the ever-evolving landscape of digital
-              marketing. From conceptualization to execution, we craft tailored
-              solutions that drive results and elevate your brand to new
-              heights.
-            </p>
-            <button
-              data-aos="fade-up"
-              data-aos-delay="500"
-              data-aos-offset="0"
-              className="primary-btn"
-            >
-              Learn More
-            </button>
-          </div>
+          <div className="space-y-5 order-2 sm:order-1 xl:pr-40">
+  <h1
+    data-aos="fade-up"
+    className="text-4xl sm:text-5xl font-semibold"
+    style={{ lineHeight: 1.2 }}
+  >
+    Take Control of Your{" "}
+    <span className="text-primary">Finances</span>
+  </h1>
+  <p data-aos="fade-up" data-aos-delay="300">
+    Manage your budget, track your expenses, and make smart investment
+    decisions—all in one place. HelpLink helps middle-class families 
+    achieve financial stability with ease.
+  </p>
+  <button
+    data-aos="fade-up"
+    data-aos-delay="500"
+    data-aos-offset="0"
+    className="primary-btn"
+  >
+    Get Started
+  </button>
+</div>
+
         </div>
       </div>
     </div>

@@ -33,8 +33,8 @@ const loginMenuLinks = [
   },
   {
     id: 2,
-    name: "Create Label",
-    link: "/create-label",
+    name: "Create Post",
+    link: "/create-post",
   },
 ];
 const Navbar = () => {
@@ -81,7 +81,7 @@ const Navbar = () => {
           <Link to="/" className="flex items-center gap-3">
             <img src={Logo} alt="" className="w-5" />
             <span className="text-2xl sm:text-3xl font-semibold">
-              Delhivery
+            HelpLink
             </span>
           </Link>
           {/* Desktop view Navigation */}
@@ -130,9 +130,7 @@ const Navbar = () => {
                             {user?.first_name}&nbsp;
                             {user?.last_name}
                           </h1>
-                          <h1 className="text-sm text-slate-500">
-                            Wallet &nbsp;{user?.wallet?.Balance}$
-                          </h1>
+                          
                         </Link>
                       </div>
                     </div>
@@ -170,14 +168,6 @@ const Navbar = () => {
                             className="block text-gray-700"
                           >
                             Notification
-                          </Link>
-                        </li>
-                        <li
-                          className="hover:bg-gray-100 px-4 py-2 rounded-lg"
-                          onClick={() => setIsDropdownOpen(false)}
-                        >
-                          <Link to="/wallet" className="block text-gray-700">
-                            Wallet
                           </Link>
                         </li>
                       </ul>

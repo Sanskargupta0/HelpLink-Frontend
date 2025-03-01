@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { initializeSocket, closeSocket } from "./utils/socketService";
+import { initializeSocket } from "./utils/socketService";
 import UserContext from "./utils/dataStore";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -32,6 +32,7 @@ import Notification from "./pages/Notification/Notification";
 import Wallet from "./pages/Wallet/Wallet";
 import CreateLabel from "./pages/CreateLabel/CreateLabel";
 import Admin from "./pages/Admin/Admin";
+import AdminPanel from "./pages/AdminPanel/AdminPanel";
 import Error from "./pages/Error/Error";
 
 const App = () => {
@@ -146,6 +147,20 @@ const App = () => {
                   ]}
                 >
                   <Admin />
+                </SessionAuth>
+              }
+            />
+            <Route
+              path="admin/user-control"
+              element={
+                <SessionAuth
+                  accessDeniedScreen={AccessDeniedScreen}
+                  overrideGlobalClaimValidators={(globalValidators) => [
+                    ...globalValidators,
+                    UserRoleClaim.validators.includes("Admin"),
+                  ]}
+                >
+                  <AdminPanel />
                 </SessionAuth>
               }
             />
