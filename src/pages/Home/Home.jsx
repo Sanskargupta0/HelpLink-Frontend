@@ -19,14 +19,14 @@ const CategorySlider = () => {
   const [activeIndex, setActiveIndex] = useState(0)
   const itemsPerPage = 4
   const categories = [
-    { id: 1, name: "Technology", image: "/placeholder.svg?height=100&width=100", count: 245 },
-    { id: 2, name: "Health & Wellness", image: "/placeholder.svg?height=100&width=100", count: 183 },
-    { id: 3, name: "Education", image: "/placeholder.svg?height=100&width=100", count: 167 },
-    { id: 4, name: "Environment", image: "/placeholder.svg?height=100&width=100", count: 142 },
-    { id: 5, name: "Arts & Culture", image: "/placeholder.svg?height=100&width=100", count: 198 },
-    { id: 6, name: "Food & Craft", image: "/placeholder.svg?height=100&width=100", count: 112 },
-    { id: 7, name: "Games", image: "/placeholder.svg?height=100&width=100", count: 156 },
-    { id: 8, name: "Fashion", image: "/placeholder.svg?height=100&width=100", count: 89 },
+    { id: 1, name: "Technology", image: "https://images.pexels.com/photos/2399840/pexels-photo-2399840.jpeg?auto=compress&cs=tinysrgb&w=6000", count: 245 },
+    { id: 2, name: "Health & Wellness", image: "https://images.pexels.com/photos/30945119/pexels-photo-30945119/free-photo-of-yoga-pose-outdoors-in-bengaluru-park.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2", count: 183 },
+    { id: 3, name: "Education", image: "https://images.pexels.com/photos/301920/pexels-photo-301920.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2", count: 167 },
+    { id: 4, name: "Environment", image: "https://images.pexels.com/photos/1108572/pexels-photo-1108572.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2", count: 142 },
+    { id: 5, name: "Arts & Culture", image: "https://images.pexels.com/photos/30819371/pexels-photo-30819371/free-photo-of-intricate-stone-statues-in-hue-s-historical-complex.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2", count: 198 },
+    { id: 6, name: "Fest & Events", image: "https://images.pexels.com/photos/976866/pexels-photo-976866.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2", count: 112 },
+    // { id: 7, name: "Games", image: "/placeholder.svg?height=100&width=100", count: 156 },
+    // { id: 8, name: "Fashion", image: "https://images.pexels.com/photos/73910/mars-mars-rover-space-travel-robot-73910.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&dpr=2", count: 89 },
   ]
   const totalPages = Math.ceil(categories.length / itemsPerPage)
 
@@ -39,7 +39,7 @@ const CategorySlider = () => {
         <motion.div
           className="flex gap-6 justify-center"
           initial={{ opacity: 1 }}
-          animate={{ x: `calc(-${activeIndex * 100}%)` }}
+          animate={{ x: calc(-${activeIndex * 100}%) }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
         >
           {categories.map((category) => (
@@ -85,7 +85,7 @@ const CategorySlider = () => {
                 ? "w-8 bg-gradient-to-r from-purple-500 to-pink-500"
                 : "w-2 bg-gray-300 dark:bg-gray-700"
             }`}
-            aria-label={`Go to slide ${index + 1}`}
+            aria-label={Go to slide ${index + 1}}
           />
         ))}
       </div>
@@ -99,7 +99,7 @@ const TestimonialCarousel = () => {
   const testimonials = [
     {
       id: 1,
-      name: "Sarah Johnson",
+      name: "Sanskar Gupa",
       role: "Project Creator",
       avatar: "/placeholder.svg?height=80&width=80",
       content:
@@ -214,7 +214,7 @@ const TestimonialCarousel = () => {
                 ? "w-8 bg-gradient-to-r from-purple-500 to-pink-500"
                 : "w-2 bg-gray-300 dark:bg-gray-700"
             }`}
-            aria-label={`Go to testimonial ${index + 1}`}
+            aria-label={Go to testimonial ${index + 1}}
           />
         ))}
       </div>
@@ -300,11 +300,10 @@ const Home = () => {
           <div className="container relative z-10">
             <div className="max-w-3xl mx-auto text-center">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 dark:from-purple-400 dark:via-pink-400 dark:to-blue-400">
-                Fund projects that matter to you.
+                Get Funded for a good cause
               </h1>
               <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-                Join thousands of innovators and creators bringing their ideas to life through community-powered
-                funding.
+                A fundraising platform that helps to fill the trust gap between the donors and volunteers.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button className="bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:opacity-90 transition-all hover:scale-105 text-lg px-8 py-6 h-auto rounded-full">
@@ -408,7 +407,7 @@ const HowItWorks = () => {
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Fund makes it easy to bring your creative projects to life. Here's how to get started.
+            Make your needs known to the world and get funded for a good cause with no trust issues and full transparency.
           </p>
         </div>
 
@@ -470,6 +469,3 @@ const NewsletterSection = () => {
     </section>
   )
 }
-
-
-
